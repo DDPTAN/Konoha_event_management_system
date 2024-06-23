@@ -14,6 +14,7 @@
   "category",
   "capacity",
   "price",
+  "description",
   "route",
   "published"
  ],
@@ -64,12 +65,17 @@
    "fieldname": "event_poster",
    "fieldtype": "Attach Image",
    "label": "Event Poster"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-21 10:32:42.823330",
+ "modified": "2024-06-23 17:32:18.374856",
  "modified_by": "Administrator",
  "module": "Event Management System",
  "name": "Events",
