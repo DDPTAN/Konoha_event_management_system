@@ -11,8 +11,8 @@
   "event_poster",
   "organizer",
   "date",
-  "category",
   "capacity",
+  "category",
   "price",
   "description",
   "route",
@@ -48,6 +48,7 @@
   {
    "fieldname": "price",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Price"
   },
   {
@@ -75,7 +76,7 @@
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-23 17:32:18.374856",
+ "modified": "2024-06-25 16:15:06.253690",
  "modified_by": "Administrator",
  "module": "Event Management System",
  "name": "Events",
