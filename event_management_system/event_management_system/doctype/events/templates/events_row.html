@@ -37,7 +37,11 @@
 			</div>
 		</div>
 		<div class="col-2 d-flex justify-content-between align-items-center">
-			<a name="" id="" class="btn btn-primary px-5 py-2" href="#" role="button">Daftar</a>
+			{%- if category == 'Gratis' -%}
+			<a name="" id="register-free" class="btn btn-primary px-5 py-2" href="#" data-event="{{name}}" data-total-payment="{{total_payment}}" data-event-name="{{event_name}}" role="button">Daftar</a>
+			{%- elif category == 'Berbayar' -%}
+			<a name="" id="register-paid" class="btn btn-primary px-5 py-2" href="#" role="button">Daftar</a>
+			{%- endif -%}
 			<a
 				name=""
 				id=""
@@ -50,4 +54,26 @@
 	</div>
 	<hr class="mb-5" />
 </div>
+
+<script>
+	document.getElementById('register-free').addEventListener('click', function(event) {
+		event.preventDefault();
+		frappe.call({
+			method: 'event_management_system.event_management_system.doctype.transactions.api.create_transaction_for_user',
+			args: {
+				event: '{{ name }}',
+				total_payment: '{{ total_payment }}',
+				event_name: '{{ event_name }}',
+			},
+			callback: function(response) {
+				if(response.ValidationError) {
+					frappe.msgprint(response.ValidationError);
+				}else {
+					frappe.msgprint(response);
+				}
+			}
+		});
+	});
+</script>
+
 <!-- this is a sample default list template -->
