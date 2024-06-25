@@ -1,0 +1,103 @@
+{
+ "actions": [],
+ "allow_guest_to_view": 1,
+ "allow_rename": 1,
+ "autoname": "EV-.#####",
+ "creation": "2024-06-21 10:15:51.570561",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "event_name",
+  "event_poster",
+  "organizer",
+  "date",
+  "capacity",
+  "category",
+  "price",
+  "description",
+  "route",
+  "published"
+ ],
+ "fields": [
+  {
+   "fieldname": "event_name",
+   "fieldtype": "Data",
+   "label": "Event Name"
+  },
+  {
+   "fieldname": "organizer",
+   "fieldtype": "Data",
+   "label": "Organizer"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "label": "Category",
+   "options": "Gratis\nBerbayar"
+  },
+  {
+   "fieldname": "capacity",
+   "fieldtype": "Int",
+   "label": "Capacity"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Price"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "default": "0",
+   "fieldname": "published",
+   "fieldtype": "Check",
+   "label": "Published"
+  },
+  {
+   "fieldname": "event_poster",
+   "fieldtype": "Attach Image",
+   "label": "Event Poster"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  }
+ ],
+ "has_web_view": 1,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-25 16:15:06.253690",
+ "modified_by": "Administrator",
+ "module": "Event Management System",
+ "name": "Events",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "route": "events",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

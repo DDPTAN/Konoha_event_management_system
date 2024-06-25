@@ -1,0 +1,46 @@
+{% extends "templates/web.html" %} {% block page_content %}
+<!-- <h1>{{ title |e }}</h1> -->
+<a href="/events"> < Kembali ke List Event</a>
+<div class="py-5 row">
+	<div class="col-sm-2">
+		<img alt="{{ event_name }}" src="{{ doc.event_poster }}" />
+	</div>
+	<div class="col">
+		<div class="mb-5">
+			<h3>{{ event_name }}</h3>
+			<hr />
+		</div>
+
+		<p class="align-self-end"><i>Penyelenggara: {{ organizer }}</i></p>
+		<div class="mt-4 d-flex">
+			<p class="mr-10">Kapasitas: <strong>{{ capacity }}</strong></p>
+			<p class="mr-10">Tanggal Pelaksanaan : <strong>{{ date }}</strong></p>
+		</div>
+
+		<div class="mt-5">
+			{%- if category == 'Gratis' -%}
+			<a
+				name=""
+				id=""
+				class="btn btn-success px-5 py-2 font-weight-bold"
+				href="#"
+				role="button"
+				>Daftar Gratis</a
+			>
+			{%- elif category == 'Berbayar' -%}
+			<a name="" id="" class="btn btn-info px-5 py-2 font-weight-bold" href="#" role="button"
+				>Daftar - Rp. {{price}}</a
+			>
+
+			{%- endif -%}
+		</div>
+
+		<div class="mt-10">
+			<h5 class="mb-5">Deskripsi Kegiatan</h5>
+			<p class="text-justify">{{description}}</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+<!-- this is a sample default web page template -->
