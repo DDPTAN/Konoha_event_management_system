@@ -23,45 +23,45 @@
             {%- if category == 'Gratis' -%}
             <a
                 name=""
-                id="register-free"
+                id="register"
                 class="btn btn-success px-5 py-2 font-weight-bold"
                 href=""
                 role="button"
                 >Daftar Gratis</a
             >
-            <script>
-                document.getElementById('register-free').addEventListener('click', function(event) {
-                    event.preventDefault();
-                    frappe.call({
-                        method: 'event_management_system.event_management_system.doctype.transactions.api.create_transaction_for_user',
-                        args: {
-                            event: '{{ name }}',
-                            total_payment: '{{ total_payment }}',
-                            event_name: '{{ event_name }}',
-                        },
-                        callback: function(response) {
-							if(response.ValidationError) {
-								frappe.msgprint(response.ValidationError);
-							}else {
-								frappe.msgprint(response);
-							}
-                        }
-                    });
-                });
-            </script>
             {%- elif category == 'Berbayar' -%}
-            <a name="" id="" class="btn btn-info px-5 py-2 font-weight-bold" href="/join-event" role="button"
+            <a name="" id="register" class="btn btn-info px-5 py-2 font-weight-bold" href="/join-event" role="button"
                 >Daftar - Rp. {{ price }}</a
             >
             {%- endif -%}
         </div>
-
         <div class="mt-10">
             <h5 class="mb-5">Deskripsi Kegiatan</h5>
             <p class="text-justify">{{ description }}</p>
         </div>
     </div>
 </div>
+
+<script>
+	document.getElementById('register').addEventListener('click', function(event) {
+		event.preventDefault();
+		frappe.call({
+			method: 'event_management_system.event_management_system.doctype.transactions.api.create_transaction_for_user',
+			args: {
+				event: '{{ name }}',
+				total_payment: '{{ total_payment }}',
+				event_name: '{{ event_name }}',
+			},
+			callback: function(response) {
+				if (response.error) {
+					frappe.msgprint(response.error);
+				} else {
+                    frappe.msgprint(response.message);
+                }
+			}
+		});
+	});
+</script>
 
 <!--<script>
     document.addEventListener('DOMContentLoaded', function() {
