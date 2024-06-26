@@ -18,18 +18,21 @@
    "fieldname": "user",
    "fieldtype": "Link",
    "label": "user",
-   "options": "User"
+   "options": "User",
+   "read_only": 1
   },
   {
    "fieldname": "event",
    "fieldtype": "Link",
    "label": "Event",
-   "options": "Events"
+   "options": "Events",
+   "read_only": 1
   },
   {
    "fieldname": "date",
    "fieldtype": "Datetime",
-   "label": "Date"
+   "label": "Date",
+   "read_only": 1
   },
   {
    "fieldname": "status",
@@ -40,17 +43,19 @@
   {
    "fieldname": "payment_bill",
    "fieldtype": "Attach Image",
-   "label": "Payment Bill"
+   "label": "Payment Bill",
+   "read_only": 1
   },
   {
    "fieldname": "total_payment",
    "fieldtype": "Currency",
-   "label": "Total Payment"
+   "label": "Total Payment",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-21 12:28:07.191920",
+ "modified": "2024-06-25 16:43:33.015160",
  "modified_by": "Administrator",
  "module": "Event Management System",
  "name": "Transactions",

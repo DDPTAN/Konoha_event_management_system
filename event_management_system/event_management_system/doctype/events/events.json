@@ -11,8 +11,8 @@
   "event_poster",
   "organizer",
   "date",
-  "category",
   "capacity",
+  "category",
   "price",
   "description",
   "route",
@@ -49,6 +49,7 @@
   {
    "fieldname": "price",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Price"
   },
   {
@@ -71,19 +72,13 @@
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description"
-  },
-  {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "Terdaftar\nBelum Terdaftar"
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2024-06-24 10:58:55.155705",
+ "modified": "2024-06-25 16:15:06.253690",
  "modified_by": "Administrator",
  "module": "Event Management System",
  "name": "Events",
