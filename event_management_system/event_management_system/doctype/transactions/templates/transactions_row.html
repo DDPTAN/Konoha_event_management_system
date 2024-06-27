@@ -1,3 +1,4 @@
+{% set session = frappe.session.user%} {% if doc.user == session %}
 <div class="mb-5">
 	<div class="row mb-5">
 		<div class="col-2">
@@ -9,6 +10,7 @@
 			/>
 		</div>
 		<div class="col-8">
+			<!-- <p>{{doc.user}}</p> -->
 			<h5>{{ events.event_name if events else 'Tidak ada event' }}</h5>
 			<p>Penyelenggara : {{ events.organizer if events else 'Tidak ada penyelenggara' }}</p>
 			<small class="text-body-secondary mr-5">
@@ -30,7 +32,7 @@
 					role="button"
 					>Upload Pembayaran</a
 				>
-				{% elif doc.status == "Dikonfirmasi" %} {% endif %}
+				{% elif doc.status == "Dikonfirmasi" %}
 				<a
 					name=""
 					id=""
@@ -39,8 +41,10 @@
 					role="button"
 					>Cetak Tiket</a
 				>
+				{% endif %}
 			</div>
 		</div>
 	</div>
 	<hr class="mb-5" />
 </div>
+{%endif%}
