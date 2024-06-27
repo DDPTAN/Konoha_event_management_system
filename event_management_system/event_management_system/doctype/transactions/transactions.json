@@ -11,7 +11,9 @@
   "date",
   "status",
   "payment_bill",
-  "total_payment"
+  "total_payment",
+  "route",
+  "published"
  ],
  "fields": [
   {
@@ -24,7 +26,7 @@
   {
    "fieldname": "event",
    "fieldtype": "Link",
-   "label": "Event",
+   "label": "Event Name",
    "options": "Events",
    "read_only": 1
   },
@@ -51,11 +53,24 @@
    "fieldtype": "Currency",
    "label": "Total Payment",
    "read_only": 1
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "default": "1",
+   "fieldname": "published",
+   "fieldtype": "Check",
+   "label": "Published"
   }
  ],
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "published",
  "links": [],
- "modified": "2024-06-25 16:43:33.015160",
+ "modified": "2024-06-27 10:38:00.327369",
  "modified_by": "Administrator",
  "module": "Event Management System",
  "name": "Transactions",
@@ -75,6 +90,7 @@
    "write": 1
   }
  ],
+ "route": "transactions",
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": []

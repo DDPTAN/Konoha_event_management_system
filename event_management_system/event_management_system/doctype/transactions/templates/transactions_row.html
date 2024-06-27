@@ -1,0 +1,46 @@
+<div class="mb-5">
+	<div class="row mb-5">
+		<div class="col-2">
+			{% set events = frappe.get_doc("Events", doc.event) %}
+			<img
+				src="{{ events.event_poster if events else '' }}"
+				class="img-fluid rounded-start"
+				alt="{{ events.event_poster if events else '' }}"
+			/>
+		</div>
+		<div class="col-8">
+			<h5>{{ events.event_name if events else 'Tidak ada event' }}</h5>
+			<p>Penyelenggara : {{ events.organizer if events else 'Tidak ada penyelenggara' }}</p>
+			<small class="text-body-secondary mr-5">
+				<b>Tanggal Pelaksanaan</b> : {{ doc.date.strftime('%d-%m-%Y') if doc.date else
+				'Tidak ada tanggal event tersedia' }}
+			</small>
+		</div>
+		<div
+			class="col-2 d-flex justify-content-start align-items-center"
+			style="padding-left: 15px"
+		>
+			<div style="display: flex; flex-direction: column; gap: 10px">
+				{% if doc.status == "Menunggu Konfirmasi" %}
+				<a
+					name=""
+					id="register-free"
+					class="btn btn-danger px-4 py-2"
+					href="/upload-payment/{{ name }}"
+					role="button"
+					>Upload Pembayaran</a
+				>
+				{% elif doc.status == "Dikonfirmasi" %} {% endif %}
+				<a
+					name=""
+					id=""
+					class="btn btn-warning px-4 py-2"
+					href="{{ doc.route }}"
+					role="button"
+					>Cetak Tiket</a
+				>
+			</div>
+		</div>
+	</div>
+	<hr class="mb-5" />
+</div>

@@ -5,13 +5,6 @@ app_description = "event management system"
 app_email = "teamkonoha@tandigital.id"
 app_license = "mit"
 
-# website_route_rules = [
-#     {"from_route": "/registered_events", "to_route": "registered_events"},
-# ]
-
-
-
-
 # required_apps = []
 
 # Includes in <head>
