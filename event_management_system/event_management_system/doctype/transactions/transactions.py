@@ -46,7 +46,7 @@ class Transactions(WebsiteGenerator):
         if event_category.lower() == 'gratis':
             self.status = 'Dikonfirmasi'
         else:
-            self.status = 'Menunggu Konfirmasi'
+            self.status = 'Mununggu Konfirmasi'
         
         self.user = frappe.session.user
         self.date = now_datetime()
@@ -62,7 +62,7 @@ class Transactions(WebsiteGenerator):
           event_date = getdate(event.date)
           current_date = getdate(nowdate())
           if event_date < current_date:
-               frappe.throw(f'Pendaftaran Event {event.event_name} Sudah Tertutp')
+               frappe.throw(f'Pendaftaran Event {event.event_name} Sudah Tertutup')
         
               
     def check_event_is_registered(self):

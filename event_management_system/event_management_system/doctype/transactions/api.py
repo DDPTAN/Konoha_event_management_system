@@ -1,5 +1,6 @@
 
 import frappe
+from frappe import ValidationError
 @frappe.whitelist()
 def create_transaction_for_user(event, total_payment, event_name):
     transaction = frappe.get_doc({
@@ -12,8 +13,8 @@ def create_transaction_for_user(event, total_payment, event_name):
     try:
         transaction.insert(ignore_permissions=True)
         return f'Kamu Sudah Berhasil Join Event {event_name}'
-    except Exception as error:
-        return error
+    except ValidationError as error:
+        return {'error': error}
     
 @frappe.whitelist()
 def get_registered_count(event):
