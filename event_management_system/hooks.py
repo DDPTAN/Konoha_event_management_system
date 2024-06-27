@@ -4,6 +4,7 @@ app_publisher = "team konoha"
 app_description = "event management system"
 app_email = "teamkonoha@tandigital.id"
 app_license = "mit"
+
 # required_apps = []
 
 # Includes in <head>

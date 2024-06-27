@@ -16,7 +16,8 @@
   "price",
   "description",
   "route",
-  "published"
+  "published",
+  "status"
  ],
  "fields": [
   {
@@ -75,6 +76,7 @@
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "published",
  "links": [],
  "modified": "2024-06-25 16:15:06.253690",
  "modified_by": "Administrator",

@@ -7,6 +7,8 @@ def create_transaction_for_user(event, total_payment, event_name):
         'doctype': 'Transactions',
         'event': event,
         'total_payment': total_payment,
+        
+        
     })
     try:
         transaction.insert(ignore_permissions=True)
