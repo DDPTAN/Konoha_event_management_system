@@ -46,7 +46,7 @@ class Transactions(WebsiteGenerator):
         if event_category.lower() == 'gratis':
             self.status = 'Dikonfirmasi'
         else:
-            self.status = 'Mununggu Konfirmasi'
+            self.status = 'Menunggu Konfirmasi'
         
         self.user = frappe.session.user
         self.date = now_datetime()
