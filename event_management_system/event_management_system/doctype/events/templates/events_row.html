@@ -49,5 +49,31 @@
 	</div>
 	<hr class="mb-5" />
 </div>
+<!-- <script>
+    document.querySelectorAll('.register-free').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            var event_name = this.getAttribute('data-event');
+            var total_payment = this.getAttribute('data-total-payment');
+            var event_name_display = this.getAttribute('data-event-name');
+            
+            frappe.call({
+                method: 'event_management_system.event_management_system.doctype.transactions.api.create_transaction_for_user',
+                args: {
+                    event: event_name,
+                    total_payment: total_payment,
+                    event_name: event_name_display,
+                },
+                callback: function(response) {
+                    if(response.ValidationError) {
+                        frappe.msgprint(response.ValidationError);
+                    } else {
+                        frappe.msgprint(response);
+                    }
+                }
+            });
+        });
+    });
+</script> -->
 
 <!-- this is a sample default list template -->
