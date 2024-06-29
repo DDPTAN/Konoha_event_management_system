@@ -23,12 +23,12 @@
 			style="padding-left: 15px"
 		>
 			<div style="display: flex; flex-direction: column; gap: 10px">
-				{% if doc.status == "Menunggu Konfirmasi" %}
+				{% if doc.status == "Menunggu Pembayaran" %}
 				<a
 					name=""
 					id="register-free"
 					class="btn btn-danger px-4 py-2"
-					href="/upload-payment/{{ name }}"
+					href="/upload-payment/?name={{ name }}"
 					role="button"
 					>Upload Pembayaran</a
 				>

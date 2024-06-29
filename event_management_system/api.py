@@ -1,20 +1,24 @@
-# import frappe
+import frappe
 
-# @frappe.whitelist()
-# def register_event(event_name):
-#     try:
-#         user = frappe.session.user
-#         doc = frappe.get_doc("Events", event_name)
-#         if not frappe.db.exists("Registered Event", {"event_name": event_name, "user": user}):
-#             frappe.get_doc({
-#                 "doctype": "Registered Event",
-#                 "event_name": event_name,
-#                 "user": user
-#             }).insert()
-#             return "success"
-#         else:
-#             return "already_registered"
-#     except Exception as e:
-#         frappe.log_error(frappe.get_traceback(), 'Event Registration Error')
-#         return "error"
-
+@frappe.whitelist(allow_guest=True)
+def register_user(full_name, email, password):
+    if not frappe.db.exists('User', email):
+        user = frappe.new_doc('User')
+        user.email = email
+        user.first_name = full_name
+        user.username = email
+        user.enabled = 1
+        user.new_password = password
+        user.flags.ignore_permissions = True
+        user.insert()
+        
+        frappe.msgprint('User registered successfully', 'Success')
+        return {
+            'status': 'success',
+            'message': 'User registered successfully'
+            }
+    else:
+        return {
+            'status': 'error',
+            'message': 'Email already registered'
+        }
