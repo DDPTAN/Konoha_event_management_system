@@ -8,34 +8,17 @@ from frappe.website.website_generator import WebsiteGenerator
 class Transactions(WebsiteGenerator):
     def before_insert(self):
         self.check_event_category()
-        self.check_event_is_registered()
-        self.check_capacity_event()
         self.check_date_event()
-        # self.set_event_details()
+        self.check_capacity_event()
+        self.check_event_payment()
+        self.check_event_is_registered()
         
     def after_insert(self):
           self.update_event_capacity_free()
           
     def after_update(self):
         self.update_event_capacity_paid()
-
-     # New method to set event details
-    # def set_event_details(self):
-    #     event = frappe.get_doc("Events", self.event)
-    #     self.event_poster = event.event_poster
-    #     self.organizer = event.organizer
-
-     # existing methods...
-    # def check_event_category(self):
-    #     event = frappe.get_doc("Events", self.event)
-    #     event_category = event.category
-    #     if event_category.lower() == 'gratis':
-    #         self.status = 'Dikonfirmasi'
-    #     else:
-    #         self.status = 'Menunggu Konfirmasi'
-    #     self.user = frappe.session.user
-    #     self.date = now_datetime()
-        
+  
 	#before_insert
     def check_event_category(self):
         
@@ -46,8 +29,9 @@ class Transactions(WebsiteGenerator):
         if event_category.lower() == 'gratis':
             self.status = 'Dikonfirmasi'
         else:
-            self.status = 'Menunggu Konfirmasi'
-        
+            self.status = 'Menunggu Pembayaran'
+            self.total_payment = event.price
+            
         self.user = frappe.session.user
         self.date = now_datetime()
         
@@ -71,8 +55,6 @@ class Transactions(WebsiteGenerator):
             filters={
                 'event': self.event, 
                 'user': self.user,
-                # 'event_poster': self.event_poster,
-                # 'organizer': self.organizer
             },
             limit=1
         )
@@ -81,6 +63,19 @@ class Transactions(WebsiteGenerator):
         
         if existing_transaction:
             frappe.throw(f'Kamu Sudah Terdaftar Pada Event {event.event_name}')
+            
+    def check_event_payment(self):
+        existing_transaction = frappe.get_all(
+            'Transactions', 
+            filters={
+                'user': frappe.session.user,
+                'status': 'Menunggu Pembayaran',
+            }
+        )
+        event = frappe.get_doc("Events", self.event)
+        
+        if existing_transaction:
+            frappe.throw(f'Kamu Harus Menyelesaikan Pembayaran Event {event.event_name}') 
             
     def update_event_capacity_free(self):
         event = frappe.get_doc("Events", self.event)
