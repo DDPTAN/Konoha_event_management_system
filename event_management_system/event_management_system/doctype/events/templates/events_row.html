@@ -1,53 +1,85 @@
 <!-- <div>
 	<a href="/{{ doc.route |e }}">{{ (doc.title or doc.name) |e }}</a>
 </div> -->
+<style>
+	body {
+		background-color: whitesmoke !important;
+	}
 
-<div class="mb-5">
-	<div class="row mb-5">
-		<div class="col-2">
-			<img
-				src="{{doc.event_poster}}"
-				class="img-fluid rounded-start"
-				alt="{{doc.event_poster}}"
-			/>
-		</div>
-		<div class="col-8">
-			<h5>{{event_name}}</h5>
-			<p>Penyelenggara : {{organizer}}</p>
+	.card {
+		border: none !important;
+		box-shadow: 7px 7px 10px 2px rgba(128, 128, 128, 0.26);
+		transition: transform ease-in-out 0.2s;
+	}
+	.card:hover {
+		border: 0.5px solid gainsboro !important;
+		transform: scale(1.1);
+		box-shadow: none;
+	}
+	.label {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-right: 1.5rem;
+	}
+	.badge {
+		font-size: 14.5px;
+	}
+</style>
 
-			<div class="mb-3">
-				{%- if category == 'Gratis' -%}
-				<span class="badge badge-pill badge-success px-2 py-1">Gratis</span>
-				{%- elif category == 'Berbayar' -%}
-				<span class="badge badge-pill badge-info px-2 py-1">Rp. {{price}}</span>
-				{%- endif -%}
+<div class="col-4 my-5 mb-20">
+	<div
+		class="card d-flex justify-content-between"
+		style="width: 20rem; height: 26rem !important"
+	>
+		<div>
+			<div>
+				<img
+					class="card-img-top container-fluid p-0"
+					style="max-height: 180px; object-fit: cover"
+					src="{{doc.event_poster}}"
+					alt="{{doc.event_name}}"
+				/>
+				<div class="mt-3 mb-3 label">
+					{%- if category == 'Gratis' -%}
+					<p class="badge badge-pill badge-success">Gratis</p>
+					{%- elif category == 'Berbayar' -%}
+					<p class="badge badge-pill badge-info h6">Rp. {{price}}</p>
+					{%- endif -%}
+				</div>
 			</div>
 
-			<div class="d-flex">
-				<p>
-					<small class="text-body-secondary mr-5"
-						><b>Tanggal Pelaksanaan</b> : {{date}}</small
-					>
-				</p>
-				<p>
-					<small class="text-body-secondary ml-5"
-						><b>Kuota Peserta</b> : {{capacity}}</small
-					>
-				</p>
+			<div class="card-body">
+				<h6 class="card-title" style="text-wrap: wrap; font-weight: bold">
+					{{event_name}}
+				</h6>
+
+				<div class="mb-5">
+					<p class="card-text m-0"><small>{{organizer}}</small></p>
+					<p class="card-text">
+						{% set days_in_indo = { 'Monday': 'Senin', 'Tuesday': 'Selasa',
+						'Wednesday': 'Rabu', 'Thursday': 'Kamis', 'Friday': 'Jumat', 'Saturday':
+						'Sabtu', 'Sunday': 'Minggu' } %} {% set english_day =
+						doc.date.strftime('%A') %} {% set indo_day = days_in_indo[english_day] %}
+						{% set formatted_date = doc.date.strftime('%d-%m-%Y') %}
+						<small class="text-body-secondary"
+							>{{ indo_day }}, {{formatted_date}}</small
+						>
+					</p>
+				</div>
 			</div>
 		</div>
-		<div class="col-2 d-flex justify-content-between align-items-center">
+		<div class="d-flex justify-content-center align-items-center mb-5 container-fluid">
 			<a
 				name=""
 				id=""
-				class="btn btn-outline-primary border border-primary px-5 py-2"
+				class="btn btn-primary container-fluid"
 				href="{{ doc.route }}"
 				role="button"
 				>Detail</a
 			>
 		</div>
 	</div>
-	<hr class="mb-5" />
 </div>
 <!-- <script>
     document.querySelectorAll('.register-free').forEach(function(button) {
