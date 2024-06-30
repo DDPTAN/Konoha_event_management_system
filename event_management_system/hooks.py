@@ -5,6 +5,11 @@ app_description = "event management system"
 app_email = "teamkonoha@tandigital.id"
 app_license = "mit"
 
+
+fixtures = [
+    {"dt": "Transactions", "filters": [["name", "=", "E-Ticket Event"]]},
+]
+
 # required_apps = []
 
 # Includes in <head>

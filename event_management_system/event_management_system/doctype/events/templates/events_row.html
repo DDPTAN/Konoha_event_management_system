@@ -1,6 +1,7 @@
-<!-- <div>
-	<a href="/{{ doc.route |e }}">{{ (doc.title or doc.name) |e }}</a>
-</div> -->
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 <style>
 	body {
 		background-color: whitesmoke !important;
@@ -44,7 +45,10 @@
 					{%- if category == 'Gratis' -%}
 					<p class="badge badge-pill badge-success">Gratis</p>
 					{%- elif category == 'Berbayar' -%}
-					<p class="badge badge-pill badge-info h6">Rp. {{price}}</p>
+
+					<p class="badge badge-pill badge-info h6">
+						Rp. {{ "{:,.0f}".format(price).replace(",", ".") }}
+					</p>
 					{%- endif -%}
 				</div>
 			</div>
@@ -55,15 +59,21 @@
 				</h6>
 
 				<div class="mb-5">
-					<p class="card-text m-0"><small>{{organizer}}</small></p>
+					<p class="card-text m-0">
+						<small
+							><i class="fa fa-users" style="margin-right: 4px"></i
+							>{{organizer}}</small
+						>
+					</p>
 					<p class="card-text">
 						{% set days_in_indo = { 'Monday': 'Senin', 'Tuesday': 'Selasa',
 						'Wednesday': 'Rabu', 'Thursday': 'Kamis', 'Friday': 'Jumat', 'Saturday':
 						'Sabtu', 'Sunday': 'Minggu' } %} {% set english_day =
 						doc.date.strftime('%A') %} {% set indo_day = days_in_indo[english_day] %}
 						{% set formatted_date = doc.date.strftime('%d-%m-%Y') %}
-						<small class="text-body-secondary"
-							>{{ indo_day }}, {{formatted_date}}</small
+						<small class="text-body-secondary">
+							<i class="fa fa-calendar" style="margin-right: 4px"></i> {{ indo_day
+							}}, {{formatted_date}}</small
 						>
 					</p>
 				</div>
