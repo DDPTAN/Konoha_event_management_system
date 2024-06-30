@@ -1,54 +1,68 @@
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
 {% extends "templates/web.html" %} {% block page_content %}
 <a href="/events"> &lt; Kembali ke List Event</a>
 <div class="py-5 row">
-	<div class="col-sm-2">
-		<img alt="{{ event_name }}" src="{{ doc.event_poster }}" />
+	<div class="col-sm-4">
+		<img
+			alt="{{ event_name }}"
+			src="{{ doc.event_poster }}"
+			class="img-fluid"
+			style="width: 100%; border-radius: 10px"
+		/>
 	</div>
-	<div class="col">
-		<div class="mb-5">
-			<h3>{{ event_name }}</h3>
-			<hr />
+	<div class="col-sm-7">
+		<div class="d-flex justify-content-start align-items-center">
+			<div>
+				<h4 class="mb-2">{{ event_name }}</h4>
+				<div class="d-flex align-items-center mt-6 mb-2">
+					<i class="fa fa-calendar mr-2"></i>
+					{% set days_in_indo = { 'Monday': 'Senin', 'Tuesday': 'Selasa', 'Wednesday':
+					'Rabu', 'Thursday': 'Kamis', 'Friday': 'Jumat', 'Saturday': 'Sabtu', 'Sunday':
+					'Minggu' } %} {% set english_day = doc.date.strftime('%A') %} {% set indo_day =
+					days_in_indo[english_day] %} {% set formatted_date =
+					doc.date.strftime('%d-%m-%Y') %}
+					<p class="mb-0">{{ indo_day }}, {{ formatted_date }}</p>
+				</div>
+			</div>
+			<div class="ml-auto">
+				{%- if category == 'Gratis' -%}
+				<a
+					name=""
+					id="register"
+					class="btn btn-success px-5 py-2 font-weight-bold"
+					href=""
+					role="button"
+					>Daftar Gratis</a
+				>
+				{%- elif category == 'Berbayar' -%}
+				<a
+					name=""
+					id="register"
+					class="btn btn-info px-5 py-2 font-weight-bold"
+					href="/join-event"
+					role="button"
+					>Daftar - Rp. {{ "{:,.0f}".format(price).replace(",", ".") }}</a
+				>
+				{%- endif -%}
+			</div>
 		</div>
-
-		<p class="align-self-end"><i>Penyelenggara: {{ organizer }}</i></p>
-		<div class="mt-4 d-flex">
-			<p class="mr-10">Kapasitas: <strong>{{ capacity }}</strong></p>
-			<!--<p class="" id="total_terisi">Total Terisi: <strong id="total_terisi_value"></strong></p> -->
-			{% set days_in_indo = { 'Monday': 'Senin', 'Tuesday': 'Selasa', 'Wednesday': 'Rabu',
-			'Thursday': 'Kamis', 'Friday': 'Jumat', 'Saturday': 'Sabtu', 'Sunday': 'Minggu' } %} {%
-			set english_day = doc.date.strftime('%A') %} {% set indo_day =
-			days_in_indo[english_day] %} {% set formatted_date = doc.date.strftime('%d-%m-%Y') %}
-			<p class="mr-10">
-				Tanggal Pelaksanaan : <strong>{{ indo_day }}, {{formatted_date}}</strong>
-			</p>
+		<div class="d-flex align-items-center mb-2">
+			<i class="fa fa-user-circle mr-2" aria-hidden="true"></i>
+			<p class="mb-0"><i>Penyelenggara: {{ organizer }}</i></p>
 		</div>
-
-		<div class="mt-5">
-			{%- if category == 'Gratis' -%}
-			<a
-				name=""
-				id="register"
-				class="btn btn-success px-5 py-2 font-weight-bold"
-				href=""
-				role="button"
-				>Daftar Gratis</a
-			>
-			{%- elif category == 'Berbayar' -%}
-			<a
-				name=""
-				id="register"
-				class="btn btn-info px-5 py-2 font-weight-bold"
-				href="/join-event"
-				role="button"
-				>Daftar - Rp. {{ "{:,.0f}".format(price).replace(",", ".") }}</a
-			>
-			{%- endif -%}
-		</div>
-		<div class="mt-10">
-			<h5 class="mb-5">Deskripsi Kegiatan</h5>
-			<p class="text-justify">{{ description }}</p>
+		<div class="d-flex align-items-center">
+			<i class="fa fa-users mr-2" aria-hidden="true"></i>
+			<p class="mb-0">Kapasitas: <strong>{{ capacity }}</strong></p>
 		</div>
 	</div>
+</div>
+<div class="mt-5">
+	<h5 class="mb-5">Deskripsi Kegiatan</h5>
+	<p class="text-justify">{{ description }}</p>
 </div>
 
 <script>
@@ -71,25 +85,4 @@
 		});
 	});
 </script>
-
-<!--<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        frappe.call({
-            method: 'event_management_system.event_management_system.doctype.transactions.api.get_registered_count',
-            args: {
-                event: '{{ name }}'
-            },
-            callback: function(response) {
-                if (response) {
-					frappe.msgprint(response)
-                    document.getElementById('total_terisi_value').innerText = response;
-                } else {
-					frappe.msgprint(response)
-                    document.getElementById('total_terisi_value').innerText = '0';
-                }
-            }
-        });
-    });
-</script> -->
-
 {% endblock %}
