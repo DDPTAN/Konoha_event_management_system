@@ -5,6 +5,11 @@ app_description = "event management system"
 app_email = "teamkonoha@tandigital.id"
 app_license = "mit"
 
+# doc_events = {
+#     "User": {
+#         "after_insert": "event_management_system.api.assign_role_to_user"
+#     }
+# }
 
 fixtures = [
     {"dt": "Transactions", "filters": [["name", "=", "E-Ticket Event"]]},

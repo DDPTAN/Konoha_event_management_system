@@ -12,6 +12,7 @@ def register_user(full_name, email, password):
         user.flags.ignore_permissions = True
         user.insert()
         
+        user.add_roles('Member')
         frappe.msgprint('User registered successfully', 'Success')
         return {
             'status': 'success',
@@ -22,3 +23,7 @@ def register_user(full_name, email, password):
             'status': 'error',
             'message': 'Email already registered'
         }
+# def assign_role_to_user(doc, method):
+#     # Definisikan role yang ingin ditambahkan
+#     doc.role_profile_name = "Member"
+#     doc.save(ignore_permissions=True)
