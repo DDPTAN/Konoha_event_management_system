@@ -1,51 +1,164 @@
-{% set session = frappe.session.user%} {% if doc.user == session %}
-<div class="mb-5">
-	<div class="row mb-5">
-		<div class="col-2">
-			{% set events = frappe.get_doc("Events", doc.event) %}
-			<img
-				src="{{ events.event_poster if events else '' }}"
-				class="img-fluid rounded-start"
-				alt="{{ events.event_poster if events else '' }}"
-			/>
-		</div>
-		<div class="col-8">
-			<!-- <p>{{doc.user}}</p> -->
-			<h5>{{ events.event_name if events else 'Tidak ada event' }}</h5>
-			<p>Penyelenggara : {{ events.organizer if events else 'Tidak ada penyelenggara' }}</p>
-			<small class="text-body-secondary mr-5">
-				<b>Tanggal Pelaksanaan</b> : {{ doc.date.strftime('%d-%m-%Y') if doc.date else
-				'Tidak ada tanggal event tersedia' }}
-			</small>
-		</div>
-		<div
-			class="col-2 d-flex justify-content-start align-items-center"
-			style="padding-left: 15px"
-		>
-			<div style="display: flex; flex-direction: column; gap: 10px">
-				{% if doc.status == "Menunggu Pembayaran" %}
-				<a
-					name=""
-					id="register-free"
-					class="btn btn-danger px-4 py-2"
-					href="/upload-payment/?name={{ name }}"
-					role="button"
-					>Upload Pembayaran</a
-				>
-				{% elif doc.status == "Dikonfirmasi" %}
-				<a
-					name=""
-					id=""
-					class="btn btn-warning px-4 py-2"
-					href="/printview?doctype=Print%20Format&name=E-Ticket%20Event&format=E-Ticket%20Event&no_letterhead=1&letterhead=No%20Letterhead&settings=%7B%7D&_lang=en"
-					target="_blank"
-					role="button"
-					>Cetak Tiket</a
-				>
-				{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Transactions</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+		
+		<style>
+			body {
+				background-color: whitesmoke !important;
+			}
+
+			.card {
+				border: none !important;
+				box-shadow: 7px 7px 10px 2px rgba(128, 128, 128, 0.26);
+				transition: transform ease-in-out 0.2s;
+			}
+
+			.card:hover {
+				border: 0.5px solid gainsboro !important;
+				transform: scale(1.1);
+				box-shadow: none;
+			}
+
+			.label {
+				position: absolute;
+				top: 0;
+				right: 0;
+				margin-right: 1.5rem;
+			}
+
+			.badge {
+				font-size: 14.5px;
+			}
+		</style>
+	</head>
+	<body>
+		{% set session = frappe.session.user %} {% if doc.user == session %} {% set events =
+		frappe.get_doc("Events", doc.event) %}
+
+		<div class="col-4 my-5 mb-20">
+			<div
+				class="card d-flex justify-content-between"
+				style="width: 20rem; height: 26rem !important"
+			>
+				<div>
+					<div>
+						<img
+							class="card-img-top container-fluid p-0"
+							style="max-height: 180px; object-fit: cover"
+							src="{{ events.event_poster if events else '' }}"
+							alt="{{ events.event_poster if events else '' }}"
+						/>
+						<div class="mt-3 mb-3 label">
+							{% if events.category == 'Gratis' %}
+							<p class="badge badge-pill badge-success">Gratis</p>
+							{% elif events.category == 'Berbayar' %}
+							<p class="badge badge-pill badge-info h6">
+								Rp. {{ "{:,.0f}".format(events.price).replace(",", ".") }}
+							</p>
+							{% endif %}
+						</div>
+					</div>
+
+					<div class="card-body">
+						<h6 class="card-title" style="text-wrap: wrap; font-weight: bold">
+							{{ events.event_name if events else 'Tidak ada event' }}
+						</h6>
+
+						<div class="mb-5">
+							<p class="card-text m-0">
+								<small>
+									<i class="fa fa-users" style="margin-right: 4px"></i>
+									{{ events.organizer if events else 'Tidak ada penyelenggara' }}
+								</small>
+							</p>
+
+							<p class="card-text">
+								{% set days_in_indo = { 'Monday': 'Senin', 'Tuesday': 'Selasa',
+								'Wednesday': 'Rabu', 'Thursday': 'Kamis', 'Friday': 'Jumat',
+								'Saturday': 'Sabtu', 'Sunday': 'Minggu' } %} {% set english_day =
+								events.date.strftime('%A') %} {% set indo_day =
+								days_in_indo[english_day] %} {% set formatted_date =
+								events.date.strftime('%d-%m-%Y') %}
+								<small class="text-body-secondary">
+									<i class="fa fa-calendar" style="margin-right: 4px"></i>
+									{{ indo_day }}, {{ formatted_date }}
+								</small>
+							</p>
+							{% if doc.status == "Menunggu Konfirmasi" %}
+							<i
+								class="fa fa-info-circle"
+								style="
+									font-size: 16px;
+									color: #e67e22;
+									cursor: pointer;
+									margin-right: 4px;
+								"
+							></i>
+							<span style="font-size: 12px; color: #e67e22">
+								Pembayaran sedang menunggu konfirmasi
+							</span>
+							{% elif doc.status == "Dikonfirmasi" %}
+							<i
+								class="fa fa-info-circle"
+								style="
+									font-size: 16px;
+									color: #28a745;
+									cursor: pointer;
+									margin-right: 4px;
+								"
+							></i>
+							<span style="font-size: 12px; color: #28a745">
+								Pembayaran telah dikonfirmasi
+							</span>
+							{% elif doc.status == "Menunggu Pembayaran" %}
+							<i
+								class="fa fa-info-circle"
+								style="
+									font-size: 16px;
+									color: red;
+									cursor: pointer;
+									margin-right: 4px;
+								"
+							></i>
+							<span style="font-size: 12px; color: red">
+								Silakan lakukan pembayaran Anda
+							</span>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center align-items-center mb-5 container-fluid">
+					{% if doc.status == "Menunggu Pembayaran" %}
+					<a
+						name=""
+						id=""
+						class="btn btn-danger container-fluid"
+						href="/upload-payment/?name={{ name }}"
+						role="button"
+						>Upload Pembayaran</a
+					>
+					{% elif doc.status == "Dikonfirmasi" %}
+					<a
+						name=""
+						id=""
+						class="btn btn-success container-fluid"
+						href="/printview?doctype=Print%20Format&name=E-Ticket%20Event&format=E-Ticket%20Event&no_letterhead=1&letterhead=No%20Letterhead&settings=%7B%7D&_lang=en"
+						role="button"
+						target="_blank"
+						>Cetak Tiket</a
+					>
+					{% endif %}
+				</div>
 			</div>
 		</div>
-	</div>
-	<hr class="mb-5" />
-</div>
-{%endif%}
+
+		{% endif %}
+	</body>
+</html>
